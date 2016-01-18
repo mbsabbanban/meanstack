@@ -8,9 +8,10 @@
 	<script src="app.js"></script>
 	<style> .glyphicon-thumbs-up {cursor:pointer} </style>
   </head>
-  <body ng-app="flapperNews" ng-controller="MainCtrl">
+  <body ng-app="flapperNews">
     <div class="row">
 	  <div class="col-md-6 col-md-offset-3">
+	    <ui-view></ui-view>
 	    <div class="page-header">
 		  <h1>Flapper News</h1>
 		</div>
@@ -50,6 +51,12 @@
 	  </div>
     </div>
 
-	
+	<script type="text/ng-template" id="/home.html">
+	  <div class="page-header">
+	    <h1>Flapper News</h1>
+	  </div>
+	  
+	  <!--rest of the template-->
+	</script>
   </body>
 </html>
