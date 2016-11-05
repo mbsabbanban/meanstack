@@ -4,13 +4,13 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+    Schema = mongoose.Schema;
 
 /**
  * Validation
  */
 function validateLength (v) {
-  // a custom validation function for checking string length to be used by the model
+  // a custom validation function for checking string length
   return v.length <= 15;
 }
 
@@ -18,28 +18,22 @@ function validateLength (v) {
  * Category Schema
  */
 var CategorySchema = new Schema({
-    // the property name
-    created: {         
-        // types are defined e.g. String, Date, Number (http://mongoosejs.com/docs/guide.html)
-        type: Date,   
-        // default values can be set
-        default: Date.now 
+    created: {          // the property name
+        type: Date,     // types are defined e.g. String, Date, Number - http://mongoosejs.com/docs/guide.html
+        default: Date.now
     },
     description: {
         type: String,
         default: '',
-        // types have specific functions e.g. trim, lowercase, uppercase (http://mongoosejs.com/docs/api.html#schema-string-js)
-        trim: true
+        trim: true      // types have specific functions e.g. trim, lowercase, uppercase - http://mongoosejs.com/docs/api.html#schema-string-js
     },
     name: {
         type: String,
         default: '',
         trim: true,     
         unique : true,
-        // make this a required field
         required: 'name cannot be blank',
-        // wires in a custom validator function (http://mongoosejs.com/docs/api.html#schematype_SchemaType-validate).
-        validate: [validateLength, 'name must be 15 chars in length or less']
+        validate: [validateLength, 'name must be 15 chars in length or less'] // wires into our custom validator function - http://mongoosejs.com/docs/api.html#schematype_SchemaType-validate
     }
 });
 
