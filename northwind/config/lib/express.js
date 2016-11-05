@@ -99,6 +99,7 @@ module.exports.initMiddleware = function (app) {
  */
 module.exports.initViewEngine = function (app) {
   // Set swig as the template engine
+
   app.engine('server.view.html', consolidate[config.templateEngine]);
 
   // Set views path and view engine
