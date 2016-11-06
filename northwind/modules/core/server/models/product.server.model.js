@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-Schema = mongoose.Schema;
+    Schema = mongoose.Schema;
 
 /**
  * Validation
@@ -57,4 +57,5 @@ default: false
 }
 });
 
+// Expose the model to other objects (similar to a 'public' setter)
 mongoose.model('Product', ProductSchema);
