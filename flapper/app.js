@@ -1,16 +1,9 @@
-var app = angular.module('flapperNews', []);
+var app = angular.module('flapperNews', ['ui.router']); //external module dependencies get added inside the brackets
 
-app.controller('MainCtrl', [ '$scope', function($scope){
-  $scope.test = 'Hello World!';
-
-  // Logic that Displays Lists
-  $scope.posts = [
-    {title: 'post 1', upvotes: 5},
-    {title: 'post 2', upvotes: 2},
-    {title: 'post 3', upvotes: 15},
-    {title: 'post 4', upvotes: 9},
-    {title: 'post 5', upvotes: 4}
-  ];
+app.controller('MainCtrl', [ '$scope', 'posts', function($scope, posts){
+  $scope.test = 'Hello World!'; // $scope is limited to the controller - factories/services - functions that are tied to the $scope
+  
+  $scope.posts = posts.posts; //Data bind $scope with post array in service
   
   // Function that will allow us to add an object into the posts array
   $scope.addPost = function(){
@@ -24,5 +17,52 @@ app.controller('MainCtrl', [ '$scope', function($scope){
   $scope.incrementUpvotes = function(post){
 	  post.upvotes += 1;
   };
+  
+}]);
 
+app.controller('PostsCtrl',[
+    '$scope',
+	'$stateParams',
+	'posts',
+	function($scope, $stateParams, posts){
+		
+}]);
+
+app.factory('posts', [function(){
+	//service body
+	var o = {
+		
+		// Logic that Displays Lists
+		
+		posts: [
+    {title: 'post 1', upvotes: 5},
+    {title: 'post 2', upvotes: 2},
+    {title: 'post 3', upvotes: 15},
+    {title: 'post 4', upvotes: 9},
+    {title: 'post 5', upvotes: 4}]
+	};
+	return o;
+}]);
+
+// Built in Angular Routing via the app.config() - this breaks my page though
+
+
+app.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function($stateProvider, $urlRouterProvider){
+	  
+	  $stateProvider.state('home',{
+		  url: '/home',
+		  templateUrl: '/home.html',
+		  controller: 'MainCtrl'
+	  });
+	  
+	  $stateProvider.state('posts',{
+		  url: '/posts/{id}',
+		  templateUrl: '/posts.html',
+		  controller: 'PostsCtrl'
+	  });
+	  
+  $urlRouterProvider.otherwise('home');
 }]);
