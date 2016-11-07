@@ -5,11 +5,24 @@ app.controller('MainCtrl', [ '$scope', function($scope){
 
   // Logic that Displays Lists
   $scope.posts = [
-    'post 1',
-    'post 2',
-    'post 3',
-    'post 4',
-    'post 5'
+    {title: 'post 1', upvotes: 5},
+    {title: 'post 2', upvotes: 2},
+    {title: 'post 3', upvotes: 15},
+    {title: 'post 4', upvotes: 9},
+    {title: 'post 5', upvotes: 4}
   ];
+  
+  // Function that will allow us to add an object into the posts array
+  $scope.addPost = function(){
+	if(!$scope.title || $scope.title === ''){ return; };
+	$scope.posts.push({title: $scope.title, link: $scope.link, upvotes: 0});  
+	$scope.title = '';
+	$scope.link = '';
+  };
+  
+  // Function that increments Votes
+  $scope.incrementUpvotes = function(post){
+	  post.upvotes += 1;
+  };
 
 }]);
