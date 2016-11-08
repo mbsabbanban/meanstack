@@ -8,17 +8,20 @@ app.controller('MainCtrl', [ '$scope', 'posts', function($scope, posts){
   // Function that will allow us to add an object into the posts array
   $scope.addPost = function(){
 	if(!$scope.title || $scope.title === ''){ return; };
-	$scope.posts.push(
-	{title: $scope.title, 
+	$scope.posts.push({
+	title: $scope.title, 
 	link: $scope.link, 
 	upvotes: 0,
 	comments: [
 	  {author: 'Joe', body: 'Cool post!', upvotes: 0},
       {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes:0}
 	]
-	});  
+	});
+
+/*	
 	$scope.title = '';
 	$scope.link = '';
+*/
   };
   
   // Function that increments Votes
@@ -29,31 +32,34 @@ app.controller('MainCtrl', [ '$scope', 'posts', function($scope, posts){
 }]);
 
 app.controller('PostsCtrl',[
-    '$scope',
+		'$scope',
 	'$stateParams',
 	'posts',
 	function($scope, $stateParams, posts){
-	  $scope.posts = posts.posts[$stateParams.id];
 	  
 	$scope.addComment = function(){
 		if($scope.body === ''){ return; }
 		$scope.post.comments.push({
 			body: $scope.body,
 			author: 'user',
-			upvotes: 0;
-		});
-		
+			upvotes: 0
+		});	
 		$scope.body = '';
 	};
+	
+    $scope.post = posts.posts[$stateParams.id];
 	  
 }]);
 
 app.factory('posts', [function(){
 	//service body
 	var o = {
-		
-		// Logic that Displays Lists
-		
+	
+	  posts: []
+	
+	};
+	
+	/* Commenting out dummy post data
 		posts: [
     {title: 'post 1', upvotes: 5},
     {title: 'post 2', upvotes: 2},
@@ -61,6 +67,9 @@ app.factory('posts', [function(){
     {title: 'post 4', upvotes: 9},
     {title: 'post 5', upvotes: 4}]
 	};
+	
+	*/
+	
 	return o;
 }]);
 
