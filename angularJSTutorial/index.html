@@ -1,0 +1,79 @@
+angular.module('app', [])
+    .controller('TodoController', ['$scope', function($scope){
+		$scope.todos = [
+			{ name: 'Master HTML/CSS/Javascript', completed: true },
+			{ name: 'Learn AngularJS', completed: false },
+			{ name: 'Build NodeJS backend', completed: false },
+			{ name: 'Get started with ExpressJS', completed: false },
+			{ name: 'Setup MongoDB database', completed: false },
+			{ name: 'Be awesome!', completed: false }
+		];
+	}]);<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <title>test your ng-knowledge</title>
+</head>
+<body>
+
+<div ng-view></div>
+
+<!-- Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+<!-- Templates -->
+
+<script type="text/ng-template" id="/todos.html">
+  <ul>
+    <input type="text" placeholder="Something to do..." ng-model="newTodo">
+    <button ng-click="save()">Add</button>
+    <br><br>
+    <li ng-repeat="todo in todos">
+      <input type="checkbox" ng-model="todo.completed" ng-change="update($index)">
+
+      <a ng-show="!isEditing[$index]" href="#/todo/{{todo._id}}">{{todo.title}}</a>
+      <button ng-show="!isEditing[$index]" ng-click="isEditing[$index] = true">edit</button>
+      <button ng-show="!isEditing[$index]" ng-click="remove($index)">remove</button>
+
+      <input ng-show="isEditing[$index]" type="text" ng-model="todo.title">
+      <button ng-show="isEditing[$index]" ng-click="update($index)">update</button>
+      <button ng-show="isEditing[$index]" ng-click="isEditing[$index] = false">cancel</button>
+    </li>
+  </ul>
+</script>
+
+<script type="text/ng-template" id="/todo.html">
+  <h1>{{todo.title}}</h1>
+  Completed: {{todo.completed}} <br>
+  Notes:
+  <textarea>{{todo.notes}}</textarea>
+  <br>
+  <button ng-click="save()">save</button>
+  <a href="#/todos">back</a>
+</script>
+
+
+<!-- ng-code -->
+<script>
+  angular.module('app', ['ngRoute', 'ngResource'])
+
+    .factory('Todos', ['$resource', function ($resource) {
+      return null;
+    }])
+
+    .controller('TodosController', ['$scope', 'Todos', function ($scope, Todos) {
+
+    }])
+
+    .controller('TodoController', ['$scope', '$routeParams', 'Todos', function ($scope, $routeParams, Todos) {
+
+    }])
+
+    .config(['$routeProvider', function ($routeProvider) {
+
+    }]);
+</script>
+
+</body>
+</html>
