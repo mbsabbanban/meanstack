@@ -1,9 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
+//----------
+// Need to connect ExpressJS Route with Mongo via Mongoose
+//----------
+var mongoose = require('mongoose');
+var Todo = require('../models/Todo.js');
+
+/* GET /todos listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+	Todo.find(function (err, todos){
+		if(err) return next(err);
+		res.json(todos);
+	});
 });
 
 module.exports = router;

@@ -1,0 +1,5 @@
+curl http://localhost:3000/todos
+curl http://localhost:3000/todos/58687b515af5ad30302c262f
+curl -XPUT http://localhost:3000/todos/58687b515af5ad30302c262f -d "note=hola"
+curl -XPOST http://localhost:3000/todos -d 'name=just%20a%20test&completed=true&note=jajajaja'
+curl -X DELETE http://localhost:3000/todos/5868fe2a39c861015cb664f5
