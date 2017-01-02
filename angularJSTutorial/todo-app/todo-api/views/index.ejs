@@ -5,6 +5,8 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
 	<!--<script src="../app.js"></script>-->
   </head>
   <body>
@@ -36,7 +38,7 @@
 // Wiring up AngularJS
 //----------
 
-angular.module('app', ['ngRoute'])
+angular.module('app', ['ngRoute', 'ngResource'])
 
 	//----------
 	// Routes
@@ -68,9 +70,12 @@ angular.module('app', ['ngRoute'])
 	})
 */
 
-	.factory('Todos', ['$http', function($http){
-		return $http.get('/todos');
+	.factory('Todos', ['$resource', function($resource){
+		return $resource('/todos/:id', null, {
+			'update': { method: 'PUT' }
+		});
 	}])
+	
 
 /* OLD CONTROLLER	
     .controller('TodoController', ['$scope', 'Todos', function($scope, Todos){
@@ -79,12 +84,7 @@ angular.module('app', ['ngRoute'])
 */
 
 	.controller('TodoController', ['$scope','Todos', function($scope, Todos){
-		Todos.success(function(data){
-			$scope.todos = data;
-		}).error(function(data, status){
-			console.log(data, status);
-			$scope.todos = [];
-		});
+		$scope.todos = Todos.query();
 	}])
 	
 	.controller('TodoDetailCtrl',['$scope', '$routeParams', 'Todos', function($scope, $routeParams, Todos){
