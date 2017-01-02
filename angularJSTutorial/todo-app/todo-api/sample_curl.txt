@@ -3,3 +3,8 @@ curl http://localhost:3000/todos/58687b515af5ad30302c262f
 curl -XPUT http://localhost:3000/todos/58687b515af5ad30302c262f -d "note=hola"
 curl -XPOST http://localhost:3000/todos -d 'name=just%20a%20test&completed=true&note=jajajaja'
 curl -X DELETE http://localhost:3000/todos/5868fe2a39c861015cb664f5
+
+
+curl -XPOST http://localhost:3000/todos -d 'name=Maya%20is%20my%20daughter&completed=false&note=so...pretty'
+curl -XPOST http://localhost:3000/todos -d 'name=Kay%20is%20my%20wife&completed=false&note=really%20pretty'
+curl -XPOST http://localhost:3000/todos -d 'name=I%20am%20a%20bum&completed=false&note=so...lame'
